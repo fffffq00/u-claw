@@ -8,6 +8,10 @@ echo     U-Claw v1.1 - Portable AI Agent
 echo   ========================================
 echo.
 
+set "TEMP=%UCLAW_DIR%data\temp"
+set "TMP=%UCLAW_DIR%data\temp"
+if not exist "%TEMP%" mkdir "%TEMP%"
+
 set "UCLAW_DIR=%~dp0"
 set "APP_DIR=%UCLAW_DIR%app"
 
@@ -73,13 +77,13 @@ if not exist "%CORE_DIR%\node_modules" (
 
 REM Auto-install WeChat plugin if available
 set "WECHAT_PLUGIN_SRC=%APP_DIR%\extensions\openclaw-weixin"
-set "WECHAT_PLUGIN_DST=%USERPROFILE%\.openclaw\extensions\openclaw-weixin"
+set "WECHAT_PLUGIN_DST=%DATA_DIR%\extensions\openclaw-weixin"
 if exist "%WECHAT_PLUGIN_SRC%\openclaw.plugin.json" (
     if not exist "%WECHAT_PLUGIN_DST%\openclaw.plugin.json" (
-        echo   Installing WeChat plugin...
-        mkdir "%USERPROFILE%\.openclaw\extensions" 2>nul
+        echo   Installing WeChat plugin to portable drive...
+        mkdir "%DATA_DIR%\extensions" 2>nul
         xcopy /s /e /q /y "%WECHAT_PLUGIN_SRC%" "%WECHAT_PLUGIN_DST%\" >nul
-        echo   WeChat plugin installed!
+        echo   WeChat plugin installed to USB!
         echo.
     )
 )
